@@ -8,9 +8,9 @@
 
 <p>hi,caldremch</p>
 
+<!--动态显示文章-->
 {% for post in posts %}
     <div>
-
     <P>poblished: {{ post.published_date}}</P>
     <h1><a href="">{{ post.title }}</a> </h1>
     <p> {{ post.text|linebreaks }}</p>
