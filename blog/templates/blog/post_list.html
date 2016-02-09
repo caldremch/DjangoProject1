@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Caldremch's Blog</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
+{#{% load blog_tags %}#}
 
-<p>hi,caldremch</p>
-
-<!--动态显示文章-->
+{% block content %}
 {% for post in posts %}
-    <div>
-    <P>poblished: {{ post.published_date}}</P>
-    <h1><a href="">{{ post.title }}</a> </h1>
-    <p> {{ post.text|linebreaks }}</p>
-    <!--linebreaks 的用法-->
+    <div class="post">
+{#    其中pk是父类Model的属性,具体可以去查看Model类的属性.应该是创建对象的时候,给对象的一个id吧#}
+        <h1><a href="{% url 'blog.views.post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+        <p>published: {{ post.published_date }}</p>
+        <p>{{ post.text|linebreaks }}</p>
     </div>
 {% endfor %}
-
-
-</body>
-</html>
+{% endblock %}

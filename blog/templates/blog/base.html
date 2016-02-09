@@ -1,0 +1,45 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+
+    <title>Caldremch's Blog</title>
+</head>
+<body>
+
+<div class="page-header">
+    {#新建文章    #}
+    <a href="{% url 'blog.views.post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+    {#草稿#}
+   <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+    <h1> <a href="/">Caldremch Blog</a> </h1>
+
+</div>
+
+<!--动态显示文章-->
+<div class="content">
+    <div class="row">
+        <div class="col-md-8">
+{#        创建了一个名字为content的block，#}
+{#        其他页面可以通过继承base.html， #}
+{#        替换这个content块来生成新的页面，页面其他内容保持不变。#}
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+

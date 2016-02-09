@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <div class="date">
+        {% if post.published_date %}
+            {{ post.published_date }}
+        {% else %}
+            {# 发布部分,如果没有发布日期的话就增加一个发布按钮 #}
+            <a class="btn btn-default" href="{% url 'blog.views.post_poblish' pk=post.pk%}">Publish</a>
+        {% endif %}
+        {# 编辑部分 #}
+        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">
+        <span class="glyphicon glyphicon-pencil"></span></a>
+        {# 删除部分 #}
+        <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}">
+        <span class="glyphicon glyphicon-remove"></span></a>
+
+    </div>
+
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.text|linebreaks }}</p>
+{% endblock %}
