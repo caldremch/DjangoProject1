@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Caldremch's Blog</title>
+</head>
+<body>
+
+<p>hi,caldremch</p>
+
+{% for post in posts %}
+    <div>
+
+    <P>poblished: {{ post.published_date}}</P>
+    <h1><a href="">{{ post.title }}</a> </h1>
+    <p> {{ post.text|linebreaks }}</p>
+    <!--linebreaks 的用法-->
+    </div>
+{% endfor %}
+
+
+</body>
+</html>
