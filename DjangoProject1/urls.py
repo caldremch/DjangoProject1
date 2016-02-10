@@ -13,11 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
 from django.conf.urls import url, include
 from django.contrib import admin
+#1.9后,改了去掉了views ,login,logout放在了auth模块 错错错 ,还可以用,具有不同参数而已
+# from django.contrib.auth import authenticate, login,logout
 
+# from django.contrib.auth import views as auth_views
+#自动寻找/
+admin.autodiscover()
 
 urlpatterns = [
+    #url第二個參數不需要加'' 过期的做法 ,1.9直接引用
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
+    url(r'^accounts/login/$','django.contrib.auth.views.login' ),
+    # url(r'^accounts/logout/$', logout, {'next_page': '/'}),
 ]

@@ -10,6 +10,7 @@ from . import views
 
 #为什么要/后面加一个/edit
 urlpatterns = [
+    # url(r'^$', views.listing),#test for paginator
     url(r'^$', views.post_list),
     #P<pk>为是post/pk  其中pk的值会具体的值给替代掉 ,这个值就是具体 post对象的.pk值
     url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail),
@@ -18,4 +19,5 @@ urlpatterns = [
     url(r'^drafts/$', views.post_draft_list, name='post_draft_list'),
     url(r'^post/(?P<pk>[0-9]+)/publish/$', views.post_poblish, name='post_publish'),
     url(r'^post/(?P<pk>[0-9]+)/remove/$', views.post_remove, name='post_remove'),
+
 ]

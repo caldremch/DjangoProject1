@@ -2,12 +2,73 @@
 {#{% load blog_tags %}#}
 
 {% block content %}
+
 {% for post in posts %}
     <div class="post">
-{#    其中pk是父类Model的属性,具体可以去查看Model类的属性.应该是创建对象的时候,给对象的一个id吧#}
+        {#其中pk是父类Model的属性,具体可以去查看Model类的属性.应该是创建对象的时候,给对象的一个id吧#}
         <h1><a href="{% url 'blog.views.post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-        <p>published: {{ post.published_date }}</p>
-        <p>{{ post.text|linebreaks }}</p>
+
+        <div class="info">
+            <span class="date">
+                {% if post.num_comment > 0 %}
+                    {{ post.num_comment }} 条评论
+                {% else %}
+                    没有评论
+                {% endif %}
+            </span>
+
+            <span class="comments">
+                {{ post.click }}人阅读&nbsp;&nbsp;
+            </span>
+            <div class="fixed"></div>
+        </div>
+
+        <div class="content">
+                <p>
+                    {% autoescape off %}
+{#                        {{ post.text|more:post.id }}#}
+                    {% endautoescape %}
+                </p>
+        </div>
+
+{#        <div class="under">#}
+{#                <span class="categories">分类: </span>#}
+{#                <span>#}
+{#                    <a href="{% url 'blog.views.post_list_by_category' cg=post.category.name %}"#}
+{#                       rel="category tag">{{ post.category.name }}#}
+{#                    </a>#}
+{#                </span>#}
+{#                <span class="tags">标签: </span>#}
+{#                <span>#}
+{#                    {% for tg in post.tags.all %}#}
+{#                        <a href="{% url 'blog.views.post_list_by_tag' tag=tg.name %}"#}
+{#                           rel="tag">{{ tg.name }}</a>&nbsp;#}
+{#                    {% endfor %}#}
+{#                </span>#}
+{#        </div>#}
+
+{#        <p>published: {{ post.published_date }}</p>#}
+{#        <p>{{ post.text|linebreaks }}</p>#}
     </div>
+
+
 {% endfor %}
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+
 {% endblock %}
