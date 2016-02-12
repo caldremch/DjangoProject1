@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 #1.9后,改了去掉了views ,login,logout放在了auth模块 错错错 ,还可以用,具有不同参数而已
+# 登陆认证用的就是有views的,具体查看源码
 # from django.contrib.auth import authenticate, login,logout
 
 # from django.contrib.auth import views as auth_views
@@ -28,5 +29,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
     url(r'^accounts/login/$','django.contrib.auth.views.login' ),
-    # url(r'^accounts/logout/$', logout, {'next_page': '/'}),
+    url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^search/', include('haystack.urls')),
 ]

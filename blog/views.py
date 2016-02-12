@@ -110,3 +110,12 @@ def post_list_by_category(request, cg):
         p.click = cache_manager.get_click(p)
     return render(request, 'blog/post_list.html',
                   {'posts': posts, 'list_header': '\'{}\' 分类的存档'.format(cg)})
+
+from haystack.forms import SearchForm
+def full_search(request):
+    """全局搜索"""
+    keywords = request.GET['q']
+    sform = SearchForm(request.GET)
+    posts = sform.search()
+    return render(request, 'blog/post_search_list.html',
+                  {'posts': posts, 'list_header': '关键字 \'{}\' 搜索结果'.format(keywords)})

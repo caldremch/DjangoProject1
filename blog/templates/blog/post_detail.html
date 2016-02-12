@@ -2,24 +2,31 @@
 
 {% block content %}
     <div class="date">
-{#        根据发布日期来指定显示的内容#}
-{#        已发布文章#}
+        {#        根据发布日期来指定显示的内容#}
+        {#        已发布文章#}
         {% if post.published_date %}
             {{ post.published_date }}
         {% else %}
-{#            未发布文章#}
+            {#            未发布文章#}
             {% if request.user.is_authenticated %}
-{#                用户已经登陆的话就显示发布按钮#}
+                {#                用户已经登陆的话就显示发布按钮#}
                 <a class="btn btn-default" href="{% url 'blog.views.post_poblish' pk=post.pk %}">Publish</a>
             {% endif %}
         {% endif %}
         {% if request.user.is_authenticated %}
-{#            用户登陆的话就显示可以编辑和可以删除#}
-            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+            {#            用户登陆的话就显示可以编辑和可以删除#}
+            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span
+                    class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-default" href="{% url 'post_remove' pk=post.pk %}"><span
+                    class="glyphicon glyphicon-remove"></span></a>
         {% endif %}
     </div>
-{#    显示文章标题和文章内容#}
+    {#    显示文章标题和文章内容#}
     <h1>{{ post.title }}</h1>
-    <p>{{ post.text|linebreaks }}</p>
+
+    {% autoescape off %}
+        <p>{{ post.text|linebreaks }}</p>
+    {% endautoescape %}
+
+
 {% endblock %}
